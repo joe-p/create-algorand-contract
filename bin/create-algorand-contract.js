@@ -58,7 +58,8 @@ function main() {
   console.log("To get started:");
   console.log(`  cd ${projectName}`);
   console.log("  npm install");
-  console.log("  npm run build\n");
+  console.log("  npm run build");
+  console.log("  npm run test");
 }
 
 main();
