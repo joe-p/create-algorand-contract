@@ -1,6 +1,6 @@
 {
   "name": "create-algorand-contract-test",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Create an Algorand smart contract project with Puya TypeScript",
   "type": "module",
   "bin": {
