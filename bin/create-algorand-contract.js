@@ -9,10 +9,17 @@ import {
   statSync,
   writeFileSync,
 } from "node:fs";
-import { dirname, join } from "node:path";
+import { basename, dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+
+function toPascalCase(str) {
+  return str
+    .split(/[-_\s]+/)
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join('');
+}
 
 function copyRecursive(src, dest, projectName) {
   const stats = statSync(src);
@@ -27,8 +34,22 @@ function copyRecursive(src, dest, projectName) {
     }
   } else {
     let content = readFileSync(src, "utf-8");
+    const className = toPascalCase(projectName);
     content = content.replace(/\{\{name\}\}/g, projectName);
-    writeFileSync(dest, content);
+    content = content.replace(/\{\{className\}\}/g, className);
+    
+    // Handle file renaming for contract files
+    const srcFileName = basename(src);
+    let destFileName = srcFileName;
+    if (srcFileName === 'hello.algo.ts') {
+      destFileName = `${className}.algo.ts`;
+    } else if (srcFileName === 'hello.test.ts') {
+      destFileName = `${className}.test.ts`;
+    }
+    
+    // dest already includes the original filename, so we need to replace it
+    const destDir = dirname(dest);
+    writeFileSync(join(destDir, destFileName), content);
   }
 }
 

@@ -53,7 +53,7 @@ algokit localnet start
 
 ## Smart Contract
 
-The template includes a simple `HelloWorld` contract that returns "Hello, world!". Check `contracts/hello.algo.ts` for the contract implementation.
+The template includes a simple `{{className}}` contract that returns "Hello, world!". Check `contracts/{{className}}.algo.ts` for the contract implementation.
 
 ## License
 
